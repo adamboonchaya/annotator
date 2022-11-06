@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>PDF Annotator V3</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="toolbar">
+        <div class="tool">
+            <span>PDF Annotator</span>
+        </div>
+        <div class="tool">
+            <button class="tool-button active">
+                <i class="fa fa-hand-paper-o" title="Free Hand" onclick="enableGrab(event)"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="tool-button">
+                <i class="fa fa-font" title="Add Text" onclick="enableText(event)"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="tool-button">
+                <i class="fa fa-pencil" title="Pencil" onclick="enableDraw(event)"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="tool-button" onclick="erase(event)">
+                <i class="fa fa-eraser"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="btn btn-danger btn-sm" onclick="clearPage()">Clear Page</button>
+        </div>
+        <div class="tool">
+            <button class="btn btn-light btn-sm" onclick="savePDF()">
+                <i class="fa fa-save"></i> 
+            Save</button>
+        </div>
+    </div>
+
+    <div id="pdf-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.3.0/fabric.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script>
+    <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script src="./main.js"></script>
+
+</body>
+</html>
