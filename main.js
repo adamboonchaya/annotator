@@ -127,6 +127,7 @@ PDFAnnotate.prototype.enableDraw = function () {
 			fabricObj.freeDrawingBrush.color = '#FF10F0';
 			fabricObj.freeDrawingBrush.width = 15;
 	        fabricObj.isDrawingMode = true;
+			fabricObj.perPixelTargetFind = true;
 	    });
 	}
 }
