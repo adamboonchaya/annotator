@@ -1,13 +1,13 @@
 //SETTING UP PDF RENDER AND MAKING FABRIC.JS VERSIONS
-
 var PDFAnnotate = function(container_id, url, options = {}) {
 
 	this.pages_rendered = 0;
-	this.active_tool = modes.draw;
+	this.active_tool = modes.grab;
 	this.url = url;
 	this.container_id = container_id;
 	this.fabricObjects = [];
 	this.fabricObjectsData = [];
+	this.active_canvas = 0;
 	var inst = this;
 
 	var loadingTask = pdfjsLib.getDocument(this.url);
@@ -134,13 +134,18 @@ PDFAnnotate.prototype.enableDraw = function () {
 PDFAnnotate.prototype.erase = function () {
 	var inst = this;
 	inst.active_tool = modes.erase;
-    $.each(inst.fabricObjects, function (index, fabricObj) {
+	$.each(inst.fabricObjects, function (index, fabricObj) {
 		fabricObj.isDrawingMode = false;
-		document.addEventListener ('mousedown', (event) => {
-			var activeObject = inst.fabricObjects[inst.active_canvas].getActiveObject();
-			inst.fabricObjects[inst.active_canvas].remove(activeObject);
-		});
-    });	
+	});
+	inst.fabricObjects[this.active_canvas].on('mouse:down', () => {
+		var activeObject = inst.fabricObjects[inst.active_canvas].getActiveObject();
+		inst.fabricObjects[inst.active_canvas].remove(activeObject);
+	});
+}
+
+PDFAnnotate.prototype.disableErase = function () {
+	var inst = this;
+	inst.fabricObjects[this.active_canvas].off('mouse:down');
 }
 
 PDFAnnotate.prototype.clearPage = function () {
@@ -193,8 +198,6 @@ PDFAnnotate.prototype.save = function (name) {
 	})
 }
 
-//FIX THE BUG WHERE YOU GO FROM PENCIL TO ERASER
-
 //CONNECTION TO THE HTML
 
 function changeActiveTool(event) {
@@ -207,40 +210,37 @@ function changeActiveTool(event) {
 
 function enableGrab(event) {
     event.preventDefault();
+	pdf.disableErase();
     changeActiveTool(event);
     pdf.enableGrab();
-	console.log('grab');
 }
 
 function enableText(event) {
     event.preventDefault();
+	pdf.disableErase();
     changeActiveTool(event);
     pdf.enableText();
-	console.log('text');
 }
 
 function enableDraw(event) {
 	event.preventDefault();
+	pdf.disableErase();
 	changeActiveTool(event);
 	pdf.enableDraw();
-	console.log('draw');
 }
 
 function erase(event) {
 	event.preventDefault();
 	changeActiveTool(event);
 	pdf.erase();
-	console.log('erase')
 }
 
 function clearPage() {
 	pdf.clearPage();
-	console.log('cleared')
 }
 
 function savePDF() {
 	pdf.save('annotated.pdf');
-	console.log('saved')
 }
 
 const modes = {
@@ -257,7 +257,7 @@ var pdf = new PDFAnnotate("pdf-container", "pdf.pdf", {
 	  console.log(page, oldData, newData);
 	},
 	ready() {
-	  console.log("Plugin initialized successfully");
+	  console.log("Ready");
 	},
 	scale: 1.5,
 });
