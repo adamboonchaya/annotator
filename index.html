@@ -25,34 +25,6 @@
             </button>
         </div>
         <div class="tool">
-            <button class="color-tool active" style="background-color: #212121;"></button>
-            <button class="color-tool" style="background-color: red;"></button>
-            <button class="color-tool" style="background-color: blue;"></button>
-            <button class="color-tool" style="background-color: #39FF14;"></button>
-            <button class="color-tool" style="background-color: #FFFF00;"></button>
-            <button class="color-tool" style="background-color: #FF10F0;"></button>
-        </div>
-        <div class="tool">
-            <button class="tool-button active">
-                <i class="fa fa-hand-paper-o" title="Free Hand" onclick="enableGrab(event)"></i>
-            </button>
-        </div>
-        <div class="tool">
-            <button class="tool-button">
-                <i class="fa fa-font" title="Add Text" onclick="enableText(event)"></i>
-            </button>
-        </div>
-        <div class="tool">
-            <button class="tool-button">
-                <i class="fa fa-pencil" title="Pencil" onclick="enableDraw(event)"></i>
-            </button>
-        </div>
-        <div class="tool">
-            <button class="tool-button" onclick="erase(event)">
-                <i class="fa fa-eraser"></i>
-            </button>
-        </div>
-        <div class="tool">
             <label for="">Font Size</label>
             <select id="font-size" class="form-control">
                 <option value="10">10</option>
@@ -81,10 +53,38 @@
             </select>
         </div>
         <div class="tool">
+            <button class="color-tool active" style="background-color: #212121;"></button>
+            <button class="color-tool" style="background-color: red;"></button>
+            <button class="color-tool" style="background-color: blue;"></button>
+            <button class="color-tool" style="background-color: #39FF14;"></button>
+            <button class="color-tool" style="background-color: #FFFF00;"></button>
+            <button class="color-tool" style="background-color: #FF10F0;"></button>
+        </div>
+        <div class="tool">
+            <button class="tool-button active">
+                <i class="fa fa-hand-paper-o" title="Free Hand" onclick="enableGrab(event)"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="tool-button">
+                <i class="fa fa-font" title="Add Text" onclick="enableText(event)"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="tool-button">
+                <i class="fa fa-pencil" title="Pencil" onclick="enableDraw(event)"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="tool-button" onclick="erase(event)">
+                <i class="fa fa-eraser"></i>
+            </button>
+        </div>
+        <div class="tool">
             <button class="btn btn-danger btn-sm" onclick="clearPage()">Clear Page</button>
         </div>
         <div class="tool">
-            <button class="btn btn-light btn-sm" onclick="savePDF()">
+            <button id="saving" class="btn btn-light btn-sm" onclick="savePDF()">
                 <i class="fa fa-save"></i> 
             Save</button>
         </div>

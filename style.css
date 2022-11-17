@@ -29,7 +29,7 @@ body {
     display: inline-block;
     color: white;
     height: 100%;
-    margin-left: 5px;
+    margin-left: 10px;
     margin-top: 10px;
 }
 
@@ -65,4 +65,9 @@ canvas, .canvas-container {
     border: 0;
     cursor: pointer;
     display: inline-block;
+}
+
+.toolbar .tool:nth-last-child(1) {
+    float: right;
+    margin-right: 20px;
 }
