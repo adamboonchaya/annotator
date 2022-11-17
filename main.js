@@ -8,6 +8,9 @@ var PDFAnnotate = function(container_id, url, options = {}) {
 	this.fabricObjects = [];
 	this.fabricObjectsData = [];
 	this.active_canvas = 0;
+	this.font_size = 16;
+	this.active_color = '#000000';
+	this.brush_size = 4;
 	var inst = this;
 
 	var loadingTask = pdfjsLib.getDocument(this.url);
@@ -82,13 +85,12 @@ var PDFAnnotate = function(container_id, url, options = {}) {
 	
 	this.fabricClickHandler = function(event, fabricObj) {
 		var inst = this;
-		console.log('clicks');
 	    if (inst.active_tool == modes.text) {
 	        var text = new fabric.IText('Sample text', {
 	            left: event.clientX - fabricObj.upperCanvasEl.getBoundingClientRect().left,
 	            top: event.clientY - fabricObj.upperCanvasEl.getBoundingClientRect().top,
-	            fill: '#FF10F0',
-	            fontSize: 12,
+	            fill: inst.active_color,
+	            fontSize: inst.font_size,
 	            selectable: true
 	        });
 	        fabricObj.add(text);
@@ -124,8 +126,8 @@ PDFAnnotate.prototype.enableDraw = function () {
 	inst.active_tool = modes.draw;
 	if (inst.fabricObjects.length > 0) {
 	    $.each(inst.fabricObjects, function (index, fabricObj) {
-			fabricObj.freeDrawingBrush.color = '#FF10F0';
-			fabricObj.freeDrawingBrush.width = 15;
+			fabricObj.freeDrawingBrush.color = inst.active_color;
+			fabricObj.freeDrawingBrush.width = parseInt(inst.brush_size, 10);
 	        fabricObj.isDrawingMode = true;
 			fabricObj.perPixelTargetFind = true;
 	    });
@@ -157,6 +159,25 @@ PDFAnnotate.prototype.clearPage = function () {
 	    fabricObj.clear();
 	    fabricObj.setBackgroundImage(bg, fabricObj.renderAll.bind(fabricObj));
 	}
+}
+
+PDFAnnotate.prototype.changeFontSize = function (fontInput) {
+	this.font_size = fontInput;
+}
+
+PDFAnnotate.prototype.changeColor = function (colorInput) {
+	var inst = this;
+	inst.active_color = colorInput;
+	$.each(inst.fabricObjects, function (index, fabricObj) {
+        fabricObj.freeDrawingBrush.color = colorInput;
+    });
+}
+
+PDFAnnotate.prototype.changeBrushSize = function (brushInput) {
+	var inst = this;
+	$.each(inst.fabricObjects, function (index, fabricObj) {
+	    fabricObj.freeDrawingBrush.width = brushInput;
+	});
 }
 
 PDFAnnotate.prototype.save = function (name) {
@@ -250,6 +271,45 @@ const modes = {
 	draw : 'draw',
 	erase : 'erase',
 }
+
+$(function () {
+    $('#font-size').change(function () {
+        var font_size = $(this).val();
+        pdf.changeFontSize(font_size);
+    });
+
+	$('.color-tool').click(function () {
+		$('.color-tool.active').removeClass('active');
+        $(this).addClass('active');
+		da_color = $(this).get(0).style.backgroundColor;
+		pdf.changeColor(da_color);
+	});
+
+	$('#brush-size').change(function () {
+		var brush_size = $(this).val();
+		pdf.changeBrushSize(brush_size);
+	});
+
+	$('#zoomin').click(function () {
+		var canvases = document.getElementsByClassName("pdf-canvas");
+		var width = canvases[0].clientWidth;
+		var height = canvases[0].clientHeight;
+		for(var i = 0; i < canvases.length; i++) {
+			canvases[i].style.width = width * 1.1 + "px";
+			canvases[i].style.height = height * 1.1 + "px";
+		}
+	})
+
+	$('#zoomout').click(function () {
+		var canvases = document.getElementsByClassName("pdf-canvas");
+		var width = canvases[0].clientWidth;
+		var height = canvases[0].clientHeight;
+		for(var i = 0; i < canvases.length; i++) {
+			canvases[i].style.width = width * (1/1.1) + "px";
+			canvases[i].style.height = height * (1/1.1) + "px";
+		}
+	})
+});
 
 //CHOOSING PDF
 

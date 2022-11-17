@@ -30,12 +30,15 @@ body {
     color: white;
     height: 100%;
     margin-left: 5px;
+    margin-top: 10px;
 }
 
+.toolbar .tool label,
 .toolbar .tool select {
     display: inline-block;
     width: auto;
-    height: auto;
+    height: auto !important;
+    padding: 0;
 }
 
 .toolbar .tool .tool-button:hover,
@@ -44,6 +47,22 @@ body {
     border-color: rgb(82, 86, 89);
 }
 
+.toolbar .tool .tool-button {
+    background-color:  rgb(43, 43, 43);
+    border: 1px solid  rgb(43, 43, 43);
+    color: #fff;
+    cursor: pointer;
+}
+
 canvas, .canvas-container {
     margin-bottom: 15px;
+}
+
+.toolbar .tool .color-tool {
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
 }

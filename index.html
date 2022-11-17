@@ -15,6 +15,24 @@
             <span>PDF Annotator</span>
         </div>
         <div class="tool">
+            <button class="tool-button" id="zoomout">
+                <i class="fa fa-search-minus"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="tool-button" id="zoomin">
+                <i class="fa fa-search-plus"></i>
+            </button>
+        </div>
+        <div class="tool">
+            <button class="color-tool active" style="background-color: #212121;"></button>
+            <button class="color-tool" style="background-color: red;"></button>
+            <button class="color-tool" style="background-color: blue;"></button>
+            <button class="color-tool" style="background-color: #39FF14;"></button>
+            <button class="color-tool" style="background-color: #FFFF00;"></button>
+            <button class="color-tool" style="background-color: #FF10F0;"></button>
+        </div>
+        <div class="tool">
             <button class="tool-button active">
                 <i class="fa fa-hand-paper-o" title="Free Hand" onclick="enableGrab(event)"></i>
             </button>
@@ -33,6 +51,34 @@
             <button class="tool-button" onclick="erase(event)">
                 <i class="fa fa-eraser"></i>
             </button>
+        </div>
+        <div class="tool">
+            <label for="">Font Size</label>
+            <select id="font-size" class="form-control">
+                <option value="10">10</option>
+                <option value="12">12</option>
+                <option value="16" selected>16</option>
+                <option value="18">18</option>
+                <option value="24">24</option>
+                <option value="32">32</option>
+                <option value="48">48</option>
+                <option value="64">64</option>
+                <option value="72">72</option>
+                <option value="108">108</option>
+            </select>
+        </div>
+        <div class="tool">
+            <label for="">Brush Size</label>
+            <select id="brush-size" class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4" selected>4</option>
+                <option value="8">8</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="48">48</option>
+                <option value="64">64</option>
+            </select>
         </div>
         <div class="tool">
             <button class="btn btn-danger btn-sm" onclick="clearPage()">Clear Page</button>
